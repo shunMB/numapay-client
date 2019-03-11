@@ -1,0 +1,88 @@
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIFF Starter</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<!-- 
+・誰に送る？
+・いくら送る？
+・科目（文章/デフォルトの設定）
+・コメント（メッセージ)
+-->
+
+  <div class='container'>
+    <h1>Numapay</h1>
+      <!-- 誰に送る？ -->
+      <div class="form-group">
+        <label>誰に送る？<span id="send-to-error" class="input-error"></span></label><br/>
+        <select id="send-to">
+          <option value="@Shun Manabe">Shun Manabe</option>
+          <option value=" @Yusuke Taruya">Yusuke Taruya</option>
+        </select>
+      </div>
+
+      <!-- いくら送る？ -->
+      <div class="form-group">
+        <label>いくら送る？<span id="token-amount-error" class="input-error"></span></label><br/>
+        <input id="token-amount" type="number" class="form-control">
+      </div>
+
+      <!-- 科目 -->
+      <div class="form-group">
+        <label>科目<span id="subject-error" class="input-error"></label><br/>
+        <input id="subject" type="text" class="form-control">
+      </div>
+
+    　<!-- コメント -->
+      <div class="form-group">
+          <label>コメント<span id="comment-error" class="input-error"></label><br/>
+          <textarea id="comment" class="form-control" rows='3'></textarea>
+      </div>
+
+      <!-- 送信ボタン -->
+      <button id="sendmessagebutton" class="btn btn-primary">Submit</button>
+  </div>
+
+  <div id="liffdata">
+      <h2>LIFF Data</h2>
+      <table border="1">
+          <tr>
+              <th>language</th>
+              <td id="languagefield"></td>
+          </tr>
+          <tr>
+              <th>context.viewType</th>
+              <td id="viewtypefield"></td>
+          </tr>
+          <tr>
+              <th>context.userId</th>
+              <td id="useridfield"></td>
+          </tr>
+          <tr>
+              <th>context.utouId</th>
+              <td id="utouidfield"></td>
+          </tr>
+          <tr>
+              <th>context.roomId</th>
+              <td id="roomidfield"></td>
+          </tr>
+          <tr>
+              <th>context.groupId</th>
+              <td id="groupidfield"></td>
+          </tr>
+      </table>
+  </div>
+
+  <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+  <script src="index.js"></script>
+
+</body>
