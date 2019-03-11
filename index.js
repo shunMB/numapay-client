@@ -106,10 +106,7 @@ window.onload = (e) => {
     sendMessageButton.addEventListener('click', () => {
 
         const txInfo = {};
-        let sendingText;
-        //フォームの入力を受け取って変数にセット
-        txInfo.sendTo = $('send-to').value;
-
+        let sendingPost;
         //フォームの入力を受け取って変数にセット
         txInfo.sendTo = (($('send-to')||{}).value)||"";
         txInfo.tokenAmount = ($('token-amount')||{}).value||0;
@@ -117,19 +114,20 @@ window.onload = (e) => {
         txInfo.comment = (($('comment')||{}).value)||"";
 
         if(validateSubmit(txInfo)){
-            sendingText = `
-                送り先：${txInfo.sendTo}\n
+            const sendToName = $('send-to option:selected').textContent;
+            sendingPost = `
+                送り先：${txInfo.sendTo + '-' + sendToName}\n
                 額面：${txInfo.tokenAmount}\n
                 科目：${txInfo.subject}\n
                 // コメント：${txInfo.comment}\n
                 `;
         }else{
-            sendingText = `異なるフォーマットです`;
+            sendingPost = `異なるフォーマットです`;
         }
 
         liff.sendMessages({
             type: 'text',
-            text: sendingText,
+            text: sendingPost,
             //TODO implement
         }).then(() => {
             window.alert("Message sent");
