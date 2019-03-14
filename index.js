@@ -11,7 +11,7 @@ const addClass = (node, className) => {
       nodeClass = (node.getAttribute('class') || '').trim(),
       nodeClassNames = nodeClass.split(/\s+/),
       i = classNames.length,
-      classNameStr;
+      classNameString;
   
   while (i--) {
     // 同名クラスがすでにあれば除く
@@ -20,17 +20,17 @@ const addClass = (node, className) => {
     }
   }
   
-  classNameStr = classNames.join(' ');
+  classNameString = classNames.join(' ');
   
   if (nodeClass.length) {
     // すでにクラスがあるときはハイフンでつなぐ
     if (classNameStr.length) {
-      node.setAttribute('class', nodeClass + ' ' + classNameStr);
+      node.setAttribute('class', nodeClass + ' ' + classNameString);
     } else {
       node.setAttribute('class', nodeClass);
     }
   } else {
-    node.setAttribute('class', classNameStr);
+    node.setAttribute('class', classNameString);
   }
 };
 
