@@ -116,9 +116,10 @@ window.onload = (e) => {
         txInfo.subject = (($('subject')||{}).value)||"";
         txInfo.comment = (($('comment')||{}).value)||"";
 
-        if(validateSubmit(txInfo)){
+        if(validateSubmit(txInfo) == true){
             const select = document.querySelector('select');
-            const sendToName = select.options[select.selectedIndex].textContents;
+            const sendToName = select.options[select.selectedIndex].textContent;
+            console.log(`sendToName: ${sendToName}`);
             // const sendToName = document.querySelector("[name='']").textContent;
             sendingPost = `
                 送り先：${txInfo.sendTo + '-' + sendToName}\n
