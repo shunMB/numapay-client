@@ -59,8 +59,7 @@ const validateItem = (result, errorCondition, errorId, itemId, explanation) => {
         return false;
     }else{
       return true;
-    }
-
+    } 
 }
 
 const validateSubmit = (txInfo) => {
@@ -82,9 +81,9 @@ const validateSubmit = (txInfo) => {
     //入力内容チェック
     result = validateItem(result, txInfo.sendTo === "", 'send-to-error', 'send-to','トークンの送付先を指定してください。');
     result = validateItem(result, txInfo.tokenAmount == 0, 'token-amount-error', 'token-amount','１以上のトークンの送付する量を指定してください。');
-    result = validateItem(result, txInfo.subject == "", 'subject-error', 'subject','科目を入力してください。');
-    result = validateItem(result, txInfo.subject.length > subjectMaxLength, 'subject-error', 'subject','科目は50文字以内で入力してください。');
-    result = validateItem(result, txInfo.comment.length > commentMaxLength, 'comment-error', 'comment', 'コメントは250文字以内で入力してください。');
+    result = validateItem(result, txInfo.subject == "", 'subject-error', 'subject','【やってくれたこと】を入力してください。');
+    result = validateItem(result, txInfo.subject.length > subjectMaxLength, 'subject-error', 'subject','【やってくれたこと】は50文字以内で入力してください。');
+    result = validateItem(result, txInfo.comment.length > commentMaxLength, 'comment-error', 'comment', '【コメント】は250文字以内で入力してください。');
 
     console.log(`validation result:${result}`);
     return result;

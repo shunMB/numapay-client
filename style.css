@@ -15,6 +15,11 @@ span.input-error {
     margin: 0;
 }
 
+
 #liffdata{
     display: none;
+}
+
+#comment-input{
+	display: none;
 }
