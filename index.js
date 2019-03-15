@@ -120,7 +120,7 @@ window.onload = (e) => {
             const sendToName = select.options[select.selectedIndex].textContent;
             console.log(`sendToName: ${sendToName}`);
             // const sendToName = document.querySelector("[name='']").textContent;
-            sendingPost = `送り先：${txInfo.sendTo + '.'+ sendToName}\n送るトークンの量：${txInfo.tokenAmount}\nやってくれたこと：\n${txInfo.subject}\n`;
+            sendingPost = `送り先：${txInfo.sendTo + '.'+ sendToName}\n送るトークンの量：${txInfo.tokenAmount}\nやってくれたこと：\n${txInfo.subject}`;
             // sendingPost = `【送り先】${txInfo.sendTo + '.'+ sendToName}\n【送るトークンの量】${txInfo.tokenAmount}\n【やってくれたこと】${txInfo.subject}\n【コメント】${txInfo.comment}\n`;
         }else{
             sendingPost = `異なるフォーマットです`;
