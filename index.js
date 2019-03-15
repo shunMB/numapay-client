@@ -57,7 +57,10 @@ const validateItem = (result, errorCondition, errorId, itemId, explanation) => {
         $(errorId).innerHTML = `<i class="fa fa-exlamation-circle"></i> ${explanation}`;
         addClass($(itemId), 'input-error');
         return false;
+    }else{
+      return true;
     }
+
 }
 
 const validateSubmit = (txInfo) => {
@@ -100,7 +103,7 @@ const initializeApp = (data) => {
 
 window.onload = (e) => {
     liff.init((data) => {
-        initializeApp(data);
+      initializeApp(data);
     });
 
     sendMessageButton.addEventListener('click', () => {
@@ -114,7 +117,9 @@ window.onload = (e) => {
         txInfo.comment = (($('comment')||{}).value)||"";
 
         if(validateSubmit(txInfo)){
-            const sendToName = $('send-to option:selected').textContent;
+            const select = document.querySelector('select');
+            const sendToName = select.options[select.selectedIndex].textContents;
+            // const sendToName = document.querySelector("[name='']").textContent;
             sendingPost = `
                 送り先：${txInfo.sendTo + '-' + sendToName}\n
                 額面：${txInfo.tokenAmount}\n
@@ -124,16 +129,18 @@ window.onload = (e) => {
         }else{
             sendingPost = `異なるフォーマットです`;
         }
-
-        liff.sendMessages({
+        liff.sendMessages([
+          {
             type: 'text',
             text: sendingPost,
-            //TODO implement
-        }).then(() => {
-            window.alert("Message sent");
+          }
+        ]).then(() => {
+            window.alert("sent message");
         }).catch( (error) => {
-            window.alert("Error sending message: " + error);
+            window.alert("Error occured while sending message: " + error);
         });
     }); 
     
 }
+
+
