@@ -121,15 +121,11 @@ window.onload = (e) => {
             const sendToName = select.options[select.selectedIndex].textContent;
             console.log(`sendToName: ${sendToName}`);
             // const sendToName = document.querySelector("[name='']").textContent;
-            sendingPost = `
-                送り先：${txInfo.sendTo + '-' + sendToName}\n
-                額面：${txInfo.tokenAmount}\n
-                科目：${txInfo.subject}\n
-                // コメント：${txInfo.comment}\n
-                `;
+            sendingPost = `【送り先】${txInfo.sendTo + '.'+ sendToName}\n【送るトークンの量】${txInfo.tokenAmount}\n【やってくれたこと】${txInfo.subject}\n【コメント】${txInfo.comment}\n`;
         }else{
             sendingPost = `異なるフォーマットです`;
         }
+        console.log(`sendingPost: \n${sendingPost}`);
         liff.sendMessages([
           {
             type: 'text',
