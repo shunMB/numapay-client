@@ -34,7 +34,6 @@ const addClass = (node, className) => {
   }
 };
 
-
 const removeClass = (node, className) => {
   let classNames = className.trim().split(/\s+/),
       nodeClass = (node.getAttribute('class') || '').trim(),
@@ -70,20 +69,20 @@ const validateSubmit = (txInfo) => {
     removeClass($('send-to'),'input-error');
     removeClass($('token-amount'),'input-error');
     removeClass($('subject'),'input-error');
-    removeClass($('comment'),'input-error'); 
+    //removeClass($('comment'),'input-error'); 
 
     // 入力エラー文をリセット
     $("send-to-error").innerHTML = '';
     $("token-amount-error").innerHTML = '';
     $("subject-error").innerHTML = '';
-    $("comment-error").innerHTML = '';
+    //$("comment-error").innerHTML = '';
 
     //入力内容チェック
-    result = validateItem(result, txInfo.sendTo === "", 'send-to-error', 'send-to','トークンの送付先を指定してください。');
-    result = validateItem(result, txInfo.tokenAmount == 0, 'token-amount-error', 'token-amount','１以上のトークンの送付する量を指定してください。');
-    result = validateItem(result, txInfo.subject == "", 'subject-error', 'subject','【やってくれたこと】を入力してください。');
-    result = validateItem(result, txInfo.subject.length > subjectMaxLength, 'subject-error', 'subject','【やってくれたこと】は50文字以内で入力してください。');
-    result = validateItem(result, txInfo.comment.length > commentMaxLength, 'comment-error', 'comment', '【コメント】は250文字以内で入力してください。');
+    result = validateItem(result, txInfo.sendTo == "送りたい人", 'send-to-error', 'send-to','*トークンの送付先を指定してください。');
+    result = validateItem(result, txInfo.tokenAmount == 0, 'token-amount-error', 'token-amount','*１以上のトークンの送付する量を指定してください。');
+    result = validateItem(result, txInfo.subject == "", 'subject-error', 'subject','*やってくれたこと を入力してください。');
+    result = validateItem(result, txInfo.subject.length > subjectMaxLength, 'subject-error', 'subject','*やってくれたこと は50文字以内で入力してください。');
+    //result = validateItem(result, txInfo.comment.length > commentMaxLength, 'comment-error', 'comment', '【コメント】は250文字以内で入力してください。');
 
     console.log(`validation result:${result}`);
     return result;
@@ -113,17 +112,15 @@ window.onload = (e) => {
         txInfo.sendTo = (($('send-to')||{}).value)||"";
         txInfo.tokenAmount = ($('token-amount')||{}).value||0;
         txInfo.subject = (($('subject')||{}).value)||"";
-        txInfo.comment = (($('comment')||{}).value)||"";
+        //txInfo.comment = (($('comment')||{}).value)||"";
 
         if(validateSubmit(txInfo) == true){
             const select = document.querySelector('select');
             const sendToName = select.options[select.selectedIndex].textContent;
             console.log(`sendToName: ${sendToName}`);
-            // const sendToName = document.querySelector("[name='']").textContent;
             sendingPost = `送り先：${txInfo.sendTo + '.'+ sendToName}\n送るトークンの量：${txInfo.tokenAmount}\nやってくれたこと：\n${txInfo.subject}`;
-            // sendingPost = `【送り先】${txInfo.sendTo + '.'+ sendToName}\n【送るトークンの量】${txInfo.tokenAmount}\n【やってくれたこと】${txInfo.subject}\n【コメント】${txInfo.comment}\n`;
         }else{
-            sendingPost = `異なるフォーマットです`;
+            sendingPost = `フォーム入力でミスがあったようです。。。もう一度送信してみてください！`;
         }
         console.log(`sendingPost: \n${sendingPost}`);
         liff.sendMessages([
@@ -132,12 +129,9 @@ window.onload = (e) => {
             text: sendingPost,
           }
         ]).then(() => {
-            window.alert("sent message");
+            window.alert("メッセージを送信しました！");
         }).catch( (error) => {
-            window.alert("Error occured while sending message: " + error);
+            window.alert("メッセージを送信できませんでした: " + error);
         });
-    }); 
-    
+    });    
 }
-
-

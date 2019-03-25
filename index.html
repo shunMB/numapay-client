@@ -1,87 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIFF Starter</title>
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<title>NumaPay</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=0.9">
+<!--===============================================================================================-->
+	<script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.4/fetch.min.js"></script>
+<!--===============================================================================================-->
+	<script src="get-user-data.js"></script>
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
 </head>
-
 <body>
 
-<!-- 
-・誰に送る？
-・いくら送る？
-・科目（文章/デフォルトの設定）
-・コメント（メッセージ)
--->
 
-  <div class='container'>
-    <h1>Numapay</h1>
-      <!-- 誰に送る？ -->
-      <div class="form-group">
-        <label>誰に送る？<span id="send-to-error" class="input-error"></span></label><br/>
-        <select id="send-to" name="send-to">
-          <option value="3">Shun Manabe</option>
-          <option value="13">Yusuke Taruya</option>
-        </select>
-      </div>
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<span class="contact100-form-title">
+				NumaPay
+			</span>
 
-      <!-- いくら送る？ -->
-      <div class="form-group">
-        <label>いくら送る？<span id="token-amount-error" class="input-error"></span></label><br/>
-        <input id="token-amount" type="number" class="form-control">
-      </div>
+			<div class="wrap-input100 input100-select">
+				<label class="label-input100">誰に送る？😍<span class="input-error" id="send-to-error"></span></label>
+				<div>
+					<select class="selection-2" id="send-to" name="send-to">
+						<option>送りたい人</option>
+						<div id="wrap-users"></div>
+					</select>
+				</div>
+				<span class="focus-input100"></span>
+			</div>
 
-      <!-- 科目 -->
-      <div class="form-group">
-        <label>やってくれたこと<span id="subject-error" class="input-error"></label><br/>
-        <input id="subject" type="text" class="form-control">
-      </div>
+			<div class="wrap-input100 validate-input">
+				<label class="label-input100">いくら送る？😁<span class="input-error" id="token-amount-error"></span></label>
+				<input class="input100" type="number" id="token-amount" placeholder="ex. 100">
+				<span class="focus-input100"></span>
+			</div>
 
-      <div class="form-group" id="comment-input">
-          <label>コメント<span id="comment-error" class="input-error"></label><br/>
-          <textarea id="comment" class="form-control" rows='3'></textarea>
-      </div>
+			<div class="wrap-input100 validate-input">
+				<label class="label-input100">やってくれたこと😜<span class="input-error" id="subject-error"></span></label>
+				<textarea class="input100" id="subject" placeholder="ex. リビングの掃除をしてくれた！"></textarea>
+				<span class="focus-input100"></span>
+			</div>
 
-      <!-- 送信ボタン -->
-      <button id="sendmessagebutton" class="btn btn-primary">送信</button>
-  </div>
+			<div class="container-contact100-form-btn">
+				<div class="wrap-contact100-form-btn">
+					<div class="contact100-form-bgbtn"></div>
+					<button id="sendmessagebutton" class="contact100-form-btn">
+						<span>
+							とうっ！送信っ！
+						</span>
+					</button>
+				</div>
+			</div>
 
-  <div id="liffdata">
-      <h2>LIFF Data</h2>
-      <table border="1">
-          <tr>
-              <th>language</th>
-              <td id="languagefield"></td>
-          </tr>
-          <tr>
-              <th>context.viewType</th>
-              <td id="viewtypefield"></td>
-          </tr>
-          <tr>
-              <th>context.userId</th>
-              <td id="useridfield"></td>
-          </tr>
-          <tr>
-              <th>context.utouId</th>
-              <td id="utouidfield"></td>
-          </tr>
-          <tr>
-              <th>context.roomId</th>
-              <td id="roomidfield"></td>
-          </tr>
-          <tr>
-              <th>context.groupId</th>
-              <td id="groupidfield"></td>
-          </tr>
-      </table>
-  </div>
+		</div>
+	</div>
 
-  <script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
-  <script src="index.js"></script>
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<!---
+	<script src="js/main.js"></script>
+	-->
+<!--===============================================================================================-->	
+ 	<script src="https://d.line-scdn.net/liff/1.0/sdk.js"></script>
+  	<script src="index.js"></script>
+
 
 </body>
+</html>
